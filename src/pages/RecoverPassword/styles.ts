@@ -39,6 +39,13 @@ export const Form = styled.form`
         font-weight: 300;
     }
 
+    p{
+        align-self: center;
+        color: #959494;
+        font-weight: 300;
+        text-align: center;
+    }
+
     input{
         width: 100%;
         height: 30px;
@@ -58,44 +65,8 @@ export const Form = styled.form`
         width: 100%;
         color: #fff;
     }
-`
 
-export const ForgetPassword = styled.button`
-    border: none;
-    background-color: transparent;
-    align-self: end;
-    margin-top: 15px;
-    color: #D45FF1;
-    cursor: pointer;
-
-    :hover{
-        color: #A15FF1;
+    section{
+        width: 100%;
     }
-`
-
-export const Line = styled.hr`
-    width: 260px;
-    color: #9A9898;
-`
-
-export const OtherLogin = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-self: center;
-    margin-top: 15px;
-    width: 200px;
-
-    button{
-        cursor: pointer;
-        border: none;
-        background-color: transparent;
-    }
-
-    img{
-        padding: 5px;
-        border-radius: 50%;
-        background-color: #fff;
-    }
-    
 `
