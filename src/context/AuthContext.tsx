@@ -1,6 +1,5 @@
-import { useHistory } from "react-router";
 import { createContext, ReactNode, useState, useEffect } from "react";
-import { firebase, auth } from '../services/firebase';
+import { firebase, auth, database } from '../services/firebase';
 
 type User = {
     id: string,
@@ -8,6 +7,7 @@ type User = {
     avatar: string,
     city: string,
     age: Number,
+    onlineState: boolean,
     email: string,
     password: string
 }
@@ -16,8 +16,9 @@ type AuthContextType = {
   user: User | undefined,
   setUser: any,
   signInWithGoogle: () => Promise<void>,
-  signUpWithEmailAndPassword: () => Promise<void>,
-  signInWithEmailAndPassword: () => Promise<void>,
+  signUpWithEmailAndPassword: () => Promise<string | undefined>,
+  signInWithEmailAndPassword: () => Promise<string | undefined>,
+  logout: () => Promise<void>,
   resetPassword: (email: string) => Promise<void>
 }
 
@@ -28,7 +29,6 @@ type AuthContextProviderProps = {
 export const AuthContext = createContext({} as AuthContextType);
 
 export default function AuthContextProvider(props: AuthContextProviderProps){
-  const history = useHistory();
   const [user, setUser] = useState<User>(
       {
         id: '',
@@ -36,65 +36,82 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
         avatar: '',
         city: '',
         age: 0,
+        onlineState: false,
         email: '',
         password: ''
     }
   );
 
   useEffect(()=>{
-      const unsubscribe = auth.onAuthStateChanged((User) => {
-          if(User){
-            const { displayName, photoURL, uid} = User;
-            setUser({
-              ...user,
-              id: uid,
-              name: displayName || '',
-              avatar: photoURL || ''
-            });
-          }
-      },(error)=>{
-          console.log(error)
-      })
+    const unsubscribe = auth.onAuthStateChanged((User) => {
+      if(User){
+        const { displayName, photoURL, uid } = User;
+        setUser({
+          ...user,
+          id: uid,
+          name: displayName || '',
+          avatar: photoURL || ''
+        });
+        database.ref().child("users").child(uid).update({
+          onlineState: true
+        });
+      }
+    },(error)=>{
+      console.log(error)
+    })
     return()=>{
       unsubscribe();
     }
   },[]);
-    
+
+  useEffect(()=>{
+    const handleOnlineState = async() => {
+      const UserRef = database.ref().child("users").child(user.id);
+      if((await UserRef.get()).exists()){
+        database.ref(`users/${user.id}`).on('value', function(snapshot) {
+          if (snapshot.val() === false) {
+            return;
+          };
+          UserRef.onDisconnect().update({
+            onlineState: false
+          })
+        })
+      }
+    }
+    if(user.id){
+      handleOnlineState();
+    }
+  },[user])
+
   async function signInWithGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider();
-    const result = await auth.signInWithPopup(provider)
+    const result = await auth.signInWithPopup(provider);
 
     if(result.user){
-      const { displayName, photoURL, uid } = result.user;
-
+      const { displayName, photoURL, uid, email } = result.user;
       setUser({
         ...user,
         id: uid,
         name: displayName || '',
-        avatar: photoURL || ''
+        avatar: photoURL || '',
+        email: email || ''
       });
-      saveUser();
-      history.push(`/`);
+      SaveUser(displayName, photoURL, email, uid);
     }
-  }
-
-  async function saveUser(){
-    const db = firebase.firestore();
-    db.collection("users").add({
-      id: user.id,
-      name: user.name,
-      city: user.city,
-      age: user.age,
-      email: user.email,
-      avatar: user.avatar
-    });  
   }
 
   async function signInWithEmailAndPassword(){
     try{
       await firebase.auth().signInWithEmailAndPassword(user.email, user.password);
     }catch(error){
-      console.log(error)
+      console.log(error);
+      let errorMessage = '';
+
+      if(error instanceof Error) {
+        errorMessage = error.message;
+      }
+      
+      return errorMessage;
     }
   }
 
@@ -103,10 +120,31 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
       const newUser = await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
       if(newUser.user){
         setUser({...user, id: newUser.user.uid});
-        saveUser();
+        SaveUser(user.name, user.avatar, user.email, newUser.user.uid);
       }
     }catch(error){
-      console.log(error)
+      console.log(error);
+      let errorMessage = '';
+
+      if(error instanceof Error) {
+        errorMessage = error.message;
+      }
+      
+      return errorMessage;
+    }
+  }
+
+  async function SaveUser(displayName: string | null, photoURL: string | null, email: string | null, uid: string){
+    const UsersRef = database.ref().child("users");
+    if(!(await UsersRef.child(uid).get()).exists()){
+      await UsersRef.child(uid).set({
+        name: displayName,
+        city: user.city,
+        age: user.age,
+        onlineState: true,
+        email: email,
+        avatar: photoURL
+      }); 
     }
   }
 
@@ -118,8 +156,26 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
     }
   }
 
+  async function logout(){
+    try{
+      await firebase.auth().signOut();
+      setUser({
+        id: '',
+        name: '',
+        avatar: '',
+        city: '',
+        age: 0,
+        onlineState: false,
+        email: '',
+        password: ''
+      });
+    }catch(error){
+      console.log(error)
+    }
+  }
+
   return(
-    <AuthContext.Provider value={{user, setUser, resetPassword, signInWithGoogle, signUpWithEmailAndPassword, signInWithEmailAndPassword}}>
+    <AuthContext.Provider value={{user, setUser, resetPassword, logout, signInWithGoogle, signUpWithEmailAndPassword, signInWithEmailAndPassword}}>
         {props.children}
     </AuthContext.Provider>
   )

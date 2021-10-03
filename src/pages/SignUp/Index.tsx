@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 import useAuth from "../../hooks/useAuth";
 import { Aside } from "../../styles/global";
 import ButtonLinear from "../../components/ButtonLinear";
-import { Content, Main, Form, Info, Line, OtherLogin, ErrorInput } from "./styles";
+import { ChangeAuthOp } from '../SignIn/styles';
+import { Content, Main, Form, PersonInfo, Info, Line, OtherLogin, ErrorInput } from "./styles";
 
 type erros = {
     name: string,
@@ -14,6 +16,7 @@ type erros = {
 
 export default function SignUp(){
     const { user, setUser, signUpWithEmailAndPassword, signInWithGoogle } = useAuth();
+    const history = useHistory();
     const [erros, setErros] = useState<erros>({
         name: '',
         email: '',
@@ -22,7 +25,7 @@ export default function SignUp(){
         age: ''
     });
 
-    const handleSubmit = ()=>{
+    const handleSubmit = async ()=>{
         let check = true;
         const validateEmail = /\S+@\S+\.\S+/;
         setErros({
@@ -58,8 +61,11 @@ export default function SignUp(){
             setErros((erros)=>({...erros, age: "Campo idade inválido!"}));
         }
 
-        if(check)
-            signUpWithEmailAndPassword();
+        if(check){
+            const erroMsg = await signUpWithEmailAndPassword();
+            if(erroMsg)
+                setErros((erros)=>({...erros, auth: erroMsg}));
+        }
     }
 
     return(
@@ -83,7 +89,7 @@ export default function SignUp(){
                     <span>
                         <Line/>ou<Line/>
                     </span>
-                    <Info>
+                    <PersonInfo>
                         <div style={{width: '50%'}}>
                             <label>Nome</label>
                             <input value={user?.name} onChange={(e)=>setUser({...user, name:e.target.value})} type="text" style={{marginTop: '10px'}}/>
@@ -99,13 +105,16 @@ export default function SignUp(){
                             <input value={String(user?.age)} onChange={(e)=>setUser({...user, age: Number(e.target.value)})} type="Number" min={0} max={120} style={{marginTop: '10px'}}/>
                             {erros.age && <ErrorInput style={{color:'#f00'}}>{erros.age}</ErrorInput>}
                         </div>
+                    </PersonInfo>
+                    <Info>
+                        <label>Email</label>
+                        <input value={user?.email} onChange={(e)=>setUser({...user, email:e.target.value})} type="text"/>
+                        {erros.email && <ErrorInput style={{color:'#f00'}}>{erros.email}</ErrorInput>}
+                        <label>Senha</label>
+                        <input value={user?.password} onChange={(e)=>setUser({...user, password:e.target.value})} type="password"/>
+                        {erros.password && <ErrorInput style={{color:'#f00'}}>{erros.password}</ErrorInput>}
+                        <ChangeAuthOp style={{alignSelf: 'start'}} onClick={()=>history.push('/signin')}>Já possui uma conta? Entre!</ChangeAuthOp>
                     </Info>
-                    <label>Email</label>
-                    <input value={user?.email} onChange={(e)=>setUser({...user, email:e.target.value})} type="text"/>
-                    {erros.email && <ErrorInput style={{color:'#f00'}}>{erros.email}</ErrorInput>}
-                    <label>Senha</label>
-                    <input value={user?.password} onChange={(e)=>setUser({...user, password:e.target.value})} type="password"/>
-                    {erros.password && <ErrorInput style={{color:'#f00'}}>{erros.password}</ErrorInput>}
                     <ButtonLinear type="submit">Cadastrar</ButtonLinear>
                 </Form>
             </Main>

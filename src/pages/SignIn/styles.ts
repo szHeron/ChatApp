@@ -73,6 +73,19 @@ export const ForgetPassword = styled.button`
     }
 `
 
+export const ChangeAuthOp = styled.button`
+    border: none;
+    background-color: transparent;
+    align-self: center;
+    margin-top: 15px;
+    color: #D45FF1;
+    cursor: pointer;
+
+    :hover{
+        color: #A15FF1;
+    }
+`
+
 export const Line = styled.hr`
     width: 260px;
     color: #9A9898;

@@ -18,11 +18,16 @@ const Button = styled.button`
     background: #6049E4;
     background: linear-gradient(180deg, #6049E4 0%, #7B6FC2 100%);
     color: #fff;
+
+    :disabled{
+        opacity: 0.5;
+        cursor: default;
+    }
 `
 
 export default function ButtonLinear(props: ButtonProps){
     return(
-        <Button>
+        <Button disabled={props.disabled} id={props.id} type={props.type}>
             {props.children}
         </Button>
     )

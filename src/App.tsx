@@ -1,22 +1,29 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import AuthContextProvider from './context/AuthContext';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Chat from './pages/Chat';
 import SignIn from './pages/SignIn/Index';
 import SignUp from './pages/SignUp/Index';
 import RecoverPassword from './pages/RecoverPassword/index';
-
+import useAuth from './hooks/useAuth';
 
 function App() {
+  const { user } = useAuth();
+
   return (
     <BrowserRouter>
-      <AuthContextProvider>
-        <Switch>
-          <Route path="/" exact component={Chat}/>
-          <Route path="/signin" component={SignIn}/>
-          <Route path="/signup" component={SignUp}/>
-          <Route path="/recover" component={RecoverPassword}/>
-        </Switch>
-      </AuthContextProvider>
+      <Switch>
+        <Route path="/" exact>
+          {!user?.id?<Redirect to="/signup"/> : <Chat/>}
+        </Route>
+        <Route path="/signin">
+          {!user?.id?<SignIn/>:<Redirect to="/"/>}
+        </Route>
+        <Route path="/signup">
+          {!user?.id?<SignUp/>:<Redirect to="/"/>}
+        </Route>
+        <Route path="/recover">
+          {!user?.id?<RecoverPassword/>:<Redirect to="/"/>}
+        </Route>
+      </Switch>
     </BrowserRouter>
   );
 }

@@ -45,7 +45,7 @@ export default function SignUp(){
                     <span>
                         <Line/>ou<Line/>
                     </span>
-                    <ForgetPassword style={{alignSelf: 'center'}} onClick={()=>history.push(`/signup`)}>Crie uma conta</ForgetPassword>
+                    <ForgetPassword style={{alignSelf: 'center'}} onClick={()=>history.push(`/signup`)}>Crie uma nova conta!</ForgetPassword>
                 </Form>
             </Main>
         </Content>
