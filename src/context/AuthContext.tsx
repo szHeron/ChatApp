@@ -52,9 +52,6 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
           name: displayName || '',
           avatar: photoURL || ''
         });
-        database.ref().child("users").child(uid).update({
-          onlineState: true
-        });
       }
     },(error)=>{
       console.log(error)
@@ -73,7 +70,7 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
             return;
           };
           UserRef.onDisconnect().update({
-            onlineState: false
+            '/onlineState': false
           })
         })
       }
@@ -135,7 +132,7 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
   }
 
   async function SaveUser(displayName: string | null, photoURL: string | null, email: string | null, uid: string){
-    const UsersRef = database.ref().child("users");
+    const UsersRef = database.ref("users");
     if(!(await UsersRef.child(uid).get()).exists()){
       await UsersRef.child(uid).set({
         name: displayName,
@@ -145,6 +142,10 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
         email: email,
         avatar: photoURL
       }); 
+    }else{
+      await UsersRef.child(uid).onDisconnect().update({
+        '/onlineState': true
+      })
     }
   }
 

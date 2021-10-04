@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-import { database } from '../../services/firebase';
 import { Card, Avatar } from './styles';
 
 type UserProps = {
@@ -9,16 +7,6 @@ type UserProps = {
 }
 
 export default function UserCard(props: UserProps){
-    const [userList, setUserList] = useState();
-
-    useEffect(()=>{
-        const getUsersList = async ()=>{
-            console.log(await database.ref('users').orderByChild('name').get());
-        }
-        getUsersList();
-    },[])
-
-
     return(
         <Card>
             <Avatar>

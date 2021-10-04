@@ -5,7 +5,8 @@ import { Content } from "./styles";
 
 type MessagesProps = {
     show: boolean,
-    setShow: Dispatch<SetStateAction<boolean>>;
+    setShow: Dispatch<SetStateAction<boolean>>,
+    users: any
 }
 
 const styles = {
@@ -26,11 +27,9 @@ export default function Messages(props: MessagesProps){
     return(
         <Content>
             <SliderUsers styles={styles} isOpen={props.show}>
-                <UserCard name="Son Goku" online={false} avatarURL="https://i.pinimg.com/originals/82/38/0e/82380ef9ab658d334f4a5eae9265c286.jpg"/>
-                <UserCard name="Vegeta" online avatarURL="https://i.pinimg.com/originals/82/38/0e/82380ef9ab658d334f4a5eae9265c286.jpg"/>
-                <UserCard name="Freeza" online avatarURL="https://i.pinimg.com/originals/82/38/0e/82380ef9ab658d334f4a5eae9265c286.jpg"/>
-                <UserCard name="Bills" online avatarURL="https://i.pinimg.com/originals/82/38/0e/82380ef9ab658d334f4a5eae9265c286.jpg"/>
-                <UserCard name="Gohan" online={false} avatarURL="https://i.pinimg.com/originals/82/38/0e/82380ef9ab658d334f4a5eae9265c286.jpg"/>
+                {Object.keys(props.users).map((key)=>{
+                    return <UserCard name={props.users[key].name} online={props.users[key].online} avatarURL={props.users[key].avatar}/>
+                })}
             </SliderUsers>
         </Content>
     )
