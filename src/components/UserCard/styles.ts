@@ -8,10 +8,11 @@ export const Card = styled.div`
     padding-left: 10px;
     padding-right: 10px;
     border: none;
-    border-bottom:1px solid #fff;
+    border-bottom:1px solid #dcdcdc;
     color: #fff;
     height: 70px;
     width: 100%;
+    cursor: pointer;
 
     h1{
         margin: 0 0 10px 0;
@@ -28,6 +29,7 @@ export const Card = styled.div`
 export const Avatar = styled.div`
     position:relative;
     display:inline-block;
+
     img{
         margin-right: 15px;
         width: 50px;

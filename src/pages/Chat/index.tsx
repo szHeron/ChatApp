@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import { database } from '../../services/firebase';
-import { Content } from "./styles";
-import HeaderChat from "../../components/HeaderChat";
-import Messages from "../../components/Messages";
-import SendMsg from "../../components/SendMsg";
+import useAuth from '../../hooks/useAuth';
+import { Content, MessageArea, Message } from './styles';
+import HeaderChat from '../../components/HeaderChat';
+import Messages from '../../components/Messages';
+import SendMsg from '../../components/SendMsg';
+import UserProfile from '../../components/UserProfile';
 
 export default function Chat(){
+    const { user } = useAuth();
+    const history = useHistory();
     const [show, setShow] = useState(false);
     const [userList, setUserList] = useState<any>();
 
@@ -17,13 +22,22 @@ export default function Chat(){
             });
         }
         getUsersList();
-    },[])
+        if(!user?.city || user?.age < 3){
+            console.log('eae')
+            history.push("/changeprofile")
+        }
+    },[user?.city, user?.age])
 
     return(
         <Content>
             <HeaderChat setShow={setShow} show={show}/>
-            {userList&&<Messages setShow={setShow} show={show} users={userList}/>}
-            <SendMsg/>
+            <MessageArea>
+                {userList&&<UserProfile setShow={setShow} show={show} users={userList}/>}
+                <Message>
+                    <Messages/>
+                    <SendMsg/>
+                </Message>
+            </MessageArea>
         </Content>
     )
 }

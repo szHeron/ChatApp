@@ -3,6 +3,7 @@ import Chat from './pages/Chat';
 import SignIn from './pages/SignIn/Index';
 import SignUp from './pages/SignUp/Index';
 import RecoverPassword from './pages/RecoverPassword/index';
+import ChangeProfile from './pages/ChangeProfile/index';
 import useAuth from './hooks/useAuth';
 
 function App() {
@@ -21,7 +22,10 @@ function App() {
           {!user?.id?<SignUp/>:<Redirect to="/"/>}
         </Route>
         <Route path="/recover">
-          {!user?.id?<RecoverPassword/>:<Redirect to="/"/>}
+          <RecoverPassword/>
+        </Route>
+        <Route path="/changeprofile">
+          <ChangeProfile/>
         </Route>
       </Switch>
     </BrowserRouter>
