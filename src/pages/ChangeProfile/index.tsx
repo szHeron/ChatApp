@@ -13,7 +13,8 @@ type erros = {
 }
 
 export default function ChangeProfileInfos(){
-    const { user, setUser } = useAuth();
+    const { user, setUser, ChangeUserInfos } = useAuth();
+    const [newAvatar, setNewAvatar] = useState<File|null>();
     const history = useHistory();
     const [erros, setErros] = useState<erros>({
         name: '',
@@ -42,9 +43,20 @@ export default function ChangeProfileInfos(){
             setErros((erros)=>({...erros, age: "Campo idade inválido!"}));
         }
 
-        if(check){
-
+        if(check && user?.id){
+            if(!newAvatar){
+                ChangeUserInfos();
+            }
+            ChangeUserInfos(newAvatar);
+            history.push('/');
         }
+    }
+
+    function getImg() {
+        if(user?.avatar){
+            return user.avatar
+        }
+        return "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjAuODIyIDE4LjA5NmMtMy40MzktLjc5NC02LjY0LTEuNDktNS4wOS00LjQxOCA0LjcyLTguOTEyIDEuMjUxLTEzLjY3OC0zLjczMi0xMy42NzgtNS4wODIgMC04LjQ2NCA0Ljk0OS0zLjczMiAxMy42NzggMS41OTcgMi45NDUtMS43MjUgMy42NDEtNS4wOSA0LjQxOC0zLjA3My43MS0zLjE4OCAyLjIzNi0zLjE3OCA0LjkwNGwuMDA0IDFoMjMuOTlsLjAwNC0uOTY5Yy4wMTItMi42ODgtLjA5Mi00LjIyMi0zLjE3Ni00LjkzNXoiLz48L3N2Zz4=";
     }
 
     return(
@@ -73,14 +85,10 @@ export default function ChangeProfileInfos(){
                         </div>
                     </PersonInfo>
                     <ImgUpdate>
-                        {user?.avatar?
-                            <img height="100px" width="100px" src={user.avatar} alt="foto de perfil"/>
-                        :
-                            <section/>
-                        }
-                        <input type="file" id="img" name="img" accept="image/*"/>
+                        <img height="100px" width="100px" src={getImg()} alt="foto de perfil"/>
+                        <input onChange={e=>{e.target.files&&setNewAvatar(e.target.files[0])}} type="file" id="img" name="img" accept="image/*"/>
                     </ImgUpdate>
-                    <ButtonLinear>
+                    <ButtonLinear type='submit'>
                         SALVAR
                     </ButtonLinear>
                 </Form>

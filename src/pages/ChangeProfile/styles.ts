@@ -11,11 +11,4 @@ export const ImgUpdate = styled.section`
     input{
         background-color: transparent;
     }
-
-    section{
-        height: 100px;
-        width: 100px;
-        background-color: #363434;
-    }
-    
 `

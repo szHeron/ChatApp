@@ -25,7 +25,7 @@ function App() {
           <RecoverPassword/>
         </Route>
         <Route path="/changeprofile">
-          <ChangeProfile/>
+          {!user?.id?<Redirect to="/signup"/> : <ChangeProfile/>}
         </Route>
       </Switch>
     </BrowserRouter>

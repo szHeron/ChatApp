@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useState, useEffect } from "react";
-import { firebase, auth, database } from '../services/firebase';
+import { firebase, auth, database, storage } from '../services/firebase';
 
 type User = {
     id: string,
@@ -19,7 +19,9 @@ type AuthContextType = {
   signUpWithEmailAndPassword: () => Promise<string | undefined>,
   signInWithEmailAndPassword: () => Promise<string | undefined>,
   logout: () => Promise<void>,
-  resetPassword: (email: string) => Promise<void>
+  resetPassword: (email: string) => Promise<void>,
+  SaveUser: (displayName: string | null, photoURL: string | null, email: string | null, uid: string) => Promise<void>,
+  ChangeUserInfos: (avatarFile?: File | null | undefined) => Promise<void>,
 }
 
 type AuthContextProviderProps = {
@@ -133,19 +135,37 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
 
   async function SaveUser(displayName: string | null, photoURL: string | null, email: string | null, uid: string){
     const UsersRef = database.ref("users");
+
     if(!(await UsersRef.child(uid).get()).exists()){
       await UsersRef.child(uid).set({
-        name: displayName,
+        name: displayName?displayName:user.name,
         city: user.city,
         age: user.age,
         onlineState: true,
-        email: email,
-        avatar: photoURL
+        email: email?email:user.email,
+        avatar: photoURL?photoURL:user.avatar
       }); 
     }else{
       await UsersRef.child(uid).onDisconnect().update({
         '/onlineState': true
       })
+    }
+  }
+
+  async function ChangeUserInfos(avatarFile?: File | null | undefined){
+    const UsersRef = database.ref("users");
+    const storageRef = storage.ref().child(`/avatars/${user.id}`);
+    if(avatarFile){
+      await storageRef.put(avatarFile);
+    }
+
+    if((await UsersRef.child(user.id).get()).exists()){
+      await UsersRef.child(user.id).update({
+        city: user.city,
+        age: user.age,
+        onlineState: true,
+        avatar: avatarFile?await storageRef.getDownloadURL():user.avatar
+      }); 
     }
   }
 
@@ -176,7 +196,17 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
   }
 
   return(
-    <AuthContext.Provider value={{user, setUser, resetPassword, logout, signInWithGoogle, signUpWithEmailAndPassword, signInWithEmailAndPassword}}>
+    <AuthContext.Provider value={{
+      user, 
+      setUser, 
+      resetPassword, 
+      logout, 
+      signInWithGoogle, 
+      signUpWithEmailAndPassword, 
+      signInWithEmailAndPassword, 
+      SaveUser,
+      ChangeUserInfos
+    }}>
         {props.children}
     </AuthContext.Provider>
   )
