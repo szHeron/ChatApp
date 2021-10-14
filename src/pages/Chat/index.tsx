@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { database } from '../../services/firebase';
 import useAuth from '../../hooks/useAuth';
-import { Content, MessageArea, Message } from './styles';
+import { Content, MessageArea, Channel } from './styles';
 import HeaderChat from '../../components/HeaderChat';
 import Messages from '../../components/Messages';
 import SendMsg from '../../components/SendMsg';
@@ -22,8 +22,8 @@ export default function Chat(){
             });
         }
         getUsersList();
-        if(!user?.city || user?.age < 3){
-            console.log('eae')
+        if(!user?.city.trim() || user?.age < 3){
+            console.log(user)
             history.push("/changeprofile")
         }
     },[user?.city, user?.age])
@@ -33,10 +33,10 @@ export default function Chat(){
             <HeaderChat setShow={setShow} show={show}/>
             <MessageArea>
                 {userList&&<UserProfile setShow={setShow} show={show} users={userList}/>}
-                <Message>
+                <Channel>
                     <Messages/>
                     <SendMsg/>
-                </Message>
+                </Channel>
             </MessageArea>
         </Content>
     )

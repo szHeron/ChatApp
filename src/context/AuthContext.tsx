@@ -21,7 +21,7 @@ type AuthContextType = {
   logout: () => Promise<void>,
   resetPassword: (email: string) => Promise<void>,
   SaveUser: (displayName: string | null, photoURL: string | null, email: string | null, uid: string) => Promise<void>,
-  ChangeUserInfos: (avatarFile?: File | null | undefined) => Promise<void>,
+  ChangeUserInfos: (avatarFile?: File | null | undefined) => Promise<void>
 }
 
 type AuthContextProviderProps = {
@@ -47,12 +47,18 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
   useEffect(()=>{
     const unsubscribe = auth.onAuthStateChanged((User) => {
       if(User){
-        const { displayName, photoURL, uid } = User;
-        setUser({
-          ...user,
-          id: uid,
-          name: displayName || '',
-          avatar: photoURL || ''
+        const { uid } = User;
+        database.ref().child("users").child(uid).get().then(async(doc)=>{
+          if(doc.exists()){
+            setUser({
+              ...doc.toJSON() as User,
+              id: uid
+            });
+          }else{
+            console.log("No such document!");
+          }
+        }).catch((error) => {
+          console.log("Error getting document:", error);
         });
       }
     },(error)=>{

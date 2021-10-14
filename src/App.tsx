@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          {!user?.id?<Redirect to="/signup"/> : <Chat/>}
+          {!user?.id?<Redirect to="/signup"/>:<Chat/>}
         </Route>
         <Route path="/signin">
           {!user?.id?<SignIn/>:<Redirect to="/"/>}

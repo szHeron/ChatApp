@@ -15,7 +15,7 @@ export const MessageArea = styled.div`
     height: 100%;
 `
 
-export const Message = styled.div`
+export const Channel = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;

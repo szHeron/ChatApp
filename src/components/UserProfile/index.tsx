@@ -9,12 +9,12 @@ const styles = {
         display: "none"
     },
     bmMenuWrap:{
-        width: '26vw'
+        width: '26vw',
     },
     bmMenu: {
         background: '#373a47',
         fontSize: '1.15em',
-        overflowY: 'hidden',
+        overflowY: 'hidden'
     },
     bmOverlay: {
         background: 'rgba(0, 0, 0, 0.3)',
