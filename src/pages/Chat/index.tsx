@@ -13,6 +13,7 @@ export default function Chat(){
     const history = useHistory();
     const [show, setShow] = useState(false);
     const [userList, setUserList] = useState<any>();
+    const [friend, setFriend] = useState<typeof user>(undefined);
 
     useEffect(()=>{
         const getUsersList = async ()=>{
@@ -32,9 +33,9 @@ export default function Chat(){
         <Content>
             <HeaderChat setShow={setShow} show={show}/>
             <MessageArea>
-                {userList&&<UserProfile setShow={setShow} show={show} users={userList}/>}
+                {userList&&<UserProfile setShow={setShow} show={show} users={userList} setFriend={setFriend} friend={friend}/>}
                 <Channel>
-                    <Messages/>
+                    <Messages friend={friend}/>
                     <SendMsg/>
                 </Channel>
             </MessageArea>

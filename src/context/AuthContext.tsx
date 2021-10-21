@@ -1,19 +1,19 @@
 import { createContext, ReactNode, useState, useEffect } from "react";
 import { firebase, auth, database, storage } from '../services/firebase';
 
-type User = {
-    id: string,
-    name: string,
-    avatar: string,
-    city: string,
-    age: Number,
-    onlineState: boolean,
-    email: string,
-    password: string
+export type UserType = {
+  id: string,
+  name: string,
+  avatar: string,
+  city: string,
+  age: Number,
+  onlineState: boolean,
+  email: string,
+  password: string
 }
   
 type AuthContextType = {
-  user: User | undefined,
+  user: UserType | undefined,
   setUser: any,
   signInWithGoogle: () => Promise<void>,
   signUpWithEmailAndPassword: () => Promise<string | undefined>,
@@ -31,7 +31,7 @@ type AuthContextProviderProps = {
 export const AuthContext = createContext({} as AuthContextType);
 
 export default function AuthContextProvider(props: AuthContextProviderProps){
-  const [user, setUser] = useState<User>(
+  const [user, setUser] = useState<UserType>(
       {
         id: '',
         name: '',
@@ -51,7 +51,7 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
         database.ref().child("users").child(uid).get().then(async(doc)=>{
           if(doc.exists()){
             setUser({
-              ...doc.toJSON() as User,
+              ...doc.toJSON() as UserType,
               id: uid
             });
           }else{

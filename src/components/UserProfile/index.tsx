@@ -1,7 +1,8 @@
-import { useState, Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { slide as SliderUsers } from 'react-burger-menu';
 import useAuth from '../../hooks/useAuth';
 import UserCard from '../UserCard';
+import { UserType } from '../../context/AuthContext';
 import { Content, Profile } from './styles';
 
 const styles = {
@@ -24,15 +25,16 @@ const styles = {
 type UsersProps = {
     show: boolean,
     setShow: Dispatch<SetStateAction<boolean>>,
-    users: any
+    users: any,
+    setFriend: Dispatch<SetStateAction<UserType|undefined>>,
+    friend: UserType|undefined
 }
 
 export default function UserInfo(props: UsersProps){
-    const [friend, setFriend] = useState<typeof user>(undefined);
     const {user} = useAuth();
 
-    const selectFriend = (friendSelect: typeof user)=> {
-        setFriend(friendSelect);
+    const selectFriend = (friendSelect: UserType)=> {
+        props.setFriend(friendSelect);
         props.setShow(false)
     }
 
@@ -46,13 +48,13 @@ export default function UserInfo(props: UsersProps){
                     null;
                 })}
             </SliderUsers>
-            {friend?
+            {props.friend?
             <Profile>
-                <img src={friend.avatar} alt="Foto de perfil"/>
-                <h1>{friend.name}</h1>
+                <img src={props.friend.avatar} alt="Foto de perfil"/>
+                <h1>{props.friend.name}</h1>
                 <section>
-                    <p>{friend.city}</p>
-                    <p>{friend.age}</p>
+                    <p>{props.friend.city}</p>
+                    <p>{props.friend.age}</p>
                 </section>
             </Profile>
             :

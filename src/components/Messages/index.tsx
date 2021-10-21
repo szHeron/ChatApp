@@ -1,21 +1,25 @@
 import { useState, useEffect } from 'react';
 import { firestore } from '../../services/firebase';
 import useAuth from '../../hooks/useAuth';
-import { Content } from './styles';
+import { UserType } from '../../context/AuthContext';
+import { Content, SendMsg, ReceiveMsg } from './styles';
 
 type Message = {
     id: string,
     text: string,
-    createdAt: Date
+    createdAt: {
+        seconds: number,
+        nanoseconds: number
+    }
 }
 
-export default function Messages(){
+export default function Messages(props: {friend: UserType|undefined}){
     const [messages, setMessages] = useState<any>();
     const { user } = useAuth();
 
     useEffect(()=>{
         const unsubscribe = firestore
-            .collection('messages')
+            .collection(`messages/${user?.id}/${props.friend}`)
             .orderBy('createdAt')
             .limit(100)
             .onSnapshot((querySnapshot)=>{
@@ -26,12 +30,21 @@ export default function Messages(){
                 setMessages(data);
             });
         return unsubscribe;
-    })
+    },[])
 
     return(
         <Content>
-            {messages.map((message: Message)=>(
-                <p id={message.id}>{message.text}</p>
+            {messages&&messages.map((message: Message, index: number)=>(
+                message.id===user?.id?
+                    <SendMsg key={index}>
+                        <p>{message.text}</p>
+                        <span>{new Date(message.createdAt.seconds*1000).getHours()}:{new Date(message.createdAt.seconds*1000).getMinutes()}</span>
+                    </SendMsg>
+                :
+                    <ReceiveMsg key={index}>
+                        <p>{message.text}</p>
+                        <span>{new Date(message.createdAt.seconds*1000).getHours()}:{new Date(message.createdAt.seconds*1000).getMinutes()}</span>
+                    </ReceiveMsg>
             ))}
         </Content>
     )
