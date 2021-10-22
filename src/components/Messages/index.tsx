@@ -18,18 +18,21 @@ export default function Messages(props: {friend: UserType|undefined}){
     const { user } = useAuth();
 
     useEffect(()=>{
-        const unsubscribe = firestore
-            .collection(`messages/${user?.id}/${props.friend}`)
-            .orderBy('createdAt')
-            .limit(100)
-            .onSnapshot((querySnapshot)=>{
-                const data = querySnapshot.docs.map(doc=>({
-                    ...doc.data(),
-                    id: doc.id
-                }));
-                setMessages(data);
-            });
-        return unsubscribe;
+        if(user?.id){
+            const unsubscribe = firestore
+                .collection(`messages/${user.id}/${props.friend}`)
+                .orderBy('createdAt')
+                .limit(100)
+                .onSnapshot((querySnapshot)=>{
+                    const data = querySnapshot.docs.map(doc=>({
+                        ...doc.data(),
+                        id: doc.id
+                    }));
+                    setMessages(data);
+                    console.log(data, user.id, props.friend)
+                });
+            return unsubscribe;
+        }
     },[])
 
     return(
