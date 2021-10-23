@@ -33,35 +33,37 @@ type UsersProps = {
 export default function UserInfo(props: UsersProps){
     const {user} = useAuth();
 
-    const selectFriend = (friendSelect: UserType)=> {
-        props.setFriend(friendSelect);
-        props.setShow(false)
-    }
-
     return(
         <Content>
             <SliderUsers styles={styles} isOpen={props.show}>
+                <UserCard selectFriend={() => {
+                    props.setFriend(undefined);
+                    props.setShow(false)
+                }} user={undefined}/>
                 {Object.keys(props.users).map((key)=>{
                     return key!==user?.id?
-                    <UserCard key={key} onClick={selectFriend} user={props.users[key]}/>
+                        <UserCard key={key} selectFriend={() => {
+                                                props.setFriend({...props.users[key], id: key});
+                                                props.setShow(false)
+                                            }} user={props.users[key]}/>
                     :
-                    null;
+                        null;
                 })}
             </SliderUsers>
             {props.friend?
-            <Profile>
-                <img src={props.friend.avatar} alt="Foto de perfil"/>
-                <h1>{props.friend.name}</h1>
-                <section>
-                    <p>{props.friend.city}</p>
-                    <p>{props.friend.age}</p>
-                </section>
-            </Profile>
-            :
-            <Profile>
-                <span/>
-                <p>Chat geral</p>
-            </Profile>
+                <Profile>
+                    <img src={props.friend.avatar} alt="Foto de perfil"/>
+                    <h1>{props.friend.name}</h1>
+                    <section>
+                        <p>{props.friend.city}</p>
+                        <p>{props.friend.age}</p>
+                    </section>
+                </Profile>
+                :
+                <Profile>
+                    <span/>
+                    <p>Chat geral</p>
+                </Profile>
             }
         </Content>
     )

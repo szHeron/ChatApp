@@ -36,6 +36,13 @@ export const Avatar = styled.div`
         height: 50px;
         border-radius: 10px;
     }
+    section{
+        margin-right: 15px;
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        background-color: #000;
+    }
     span{
         width:8px;
         height:8px;

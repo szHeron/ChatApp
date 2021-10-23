@@ -10,7 +10,8 @@ type Message = {
     createdAt: {
         seconds: number,
         nanoseconds: number
-    }
+    },
+    createdBy: string
 }
 
 export default function Messages(props: {friend: UserType|undefined}){
@@ -20,7 +21,7 @@ export default function Messages(props: {friend: UserType|undefined}){
     useEffect(()=>{
         if(user?.id){
             const unsubscribe = firestore
-                .collection(`messages/${user.id}/${props.friend}`)
+                .collection(`messages/${props.friend?user.id:'public'}/${props.friend?props.friend.id:'chat'}`)
                 .orderBy('createdAt')
                 .limit(100)
                 .onSnapshot((querySnapshot)=>{
@@ -29,16 +30,15 @@ export default function Messages(props: {friend: UserType|undefined}){
                         id: doc.id
                     }));
                     setMessages(data);
-                    console.log(data, user.id, props.friend)
                 });
             return unsubscribe;
         }
-    },[])
+    },[props.friend])
 
     return(
         <Content>
             {messages&&messages.map((message: Message, index: number)=>(
-                message.id===user?.id?
+                message.createdBy===user?.id?
                     <SendMsg key={index}>
                         <p>{message.text}</p>
                         <span>{new Date(message.createdAt.seconds*1000).getHours()}:{new Date(message.createdAt.seconds*1000).getMinutes()}</span>

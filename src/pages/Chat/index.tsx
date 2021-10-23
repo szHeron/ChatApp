@@ -36,7 +36,7 @@ export default function Chat(){
                 {userList&&<UserProfile setShow={setShow} show={show} users={userList} setFriend={setFriend} friend={friend}/>}
                 <Channel>
                     <Messages friend={friend}/>
-                    <SendMsg/>
+                    <SendMsg friend={friend}/>
                 </Channel>
             </MessageArea>
         </Content>
