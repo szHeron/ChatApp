@@ -17,7 +17,6 @@ export default function SendMsg(props: {friend: UserType | undefined}){
     async function sendMessage(){
         if(user && msg.length > 0){
             const now = new Date(firebase.firestore.Timestamp.now().seconds*1000)
-            console.log(props.friend)
             await firestore
             .collection(`messages/${props.friend?user.id:'public'}/${props.friend?props.friend.id:'chat'}`)
             .add({

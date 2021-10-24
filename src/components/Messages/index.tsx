@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { firestore } from '../../services/firebase';
 import useAuth from '../../hooks/useAuth';
 import { UserType } from '../../context/AuthContext';
-import { Content, SendMsg, ReceiveMsg } from './styles';
+import { Author, Content, SendMsg, ReceiveMsg, TextArea } from './styles';
 
 type Message = {
     id: string,
@@ -14,8 +14,8 @@ type Message = {
     createdBy: string
 }
 
-export default function Messages(props: {friend: UserType|undefined}){
-    const [messages, setMessages] = useState<any>();
+export default function Messages(props: { friend: UserType|undefined, usersList: any }){
+    const [ messages, setMessages ] = useState<any>();
     const { user } = useAuth();
 
     useEffect(()=>{
@@ -37,17 +37,34 @@ export default function Messages(props: {friend: UserType|undefined}){
 
     return(
         <Content>
-            {messages&&messages.map((message: Message, index: number)=>(
-                message.createdBy===user?.id?
+            {(messages && props.usersList)&&messages.map((message: Message, index: number)=>(
+                message.createdBy === user?.id?(
                     <SendMsg key={index}>
-                        <p>{message.text}</p>
-                        <span>{new Date(message.createdAt.seconds*1000).getHours()}:{new Date(message.createdAt.seconds*1000).getMinutes()}</span>
+                        {(index === 0 || (messages[index-1].createdBy !== message.createdBy))&&
+                            <Author>
+                                {/*<p>{props.usersList[message.createdBy].name}</p>*/}
+                                <img src={props.usersList[message.createdBy].avatar} alt="Autor da mensagem"/>
+                            </Author>
+                        }
+                        <TextArea>
+                            <p>{message.text}</p>
+                            <span>{new Date(message.createdAt.seconds*1000).getHours()}:{new Date(message.createdAt.seconds*1000).getMinutes()}</span>
+                        </TextArea>
                     </SendMsg>
-                :
+                ):(
                     <ReceiveMsg key={index}>
-                        <p>{message.text}</p>
-                        <span>{new Date(message.createdAt.seconds*1000).getHours()}:{new Date(message.createdAt.seconds*1000).getMinutes()}</span>
+                        {(index === 0 || (messages[index-1].createdBy !== message.createdBy))&&
+                            <Author>
+                                {/*<p>{props.usersList[message.createdBy].name}</p>*/}
+                                <img src={props.usersList[message.createdBy].avatar} alt="Autor da mensagem"/>
+                            </Author>
+                        }
+                        <TextArea>
+                            <p>{message.text}</p>
+                            <span>{new Date(message.createdAt.seconds*1000).getHours()}:{new Date(message.createdAt.seconds*1000).getMinutes()}</span>
+                        </TextArea>
                     </ReceiveMsg>
+                )
             ))}
         </Content>
     )

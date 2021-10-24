@@ -12,6 +12,7 @@ export const Content = styled.div`
     align-items: center;
     background-color: #363434;
     color: #fff;
+    margin: 0;
 
     input{
         height: 25px;
@@ -22,6 +23,10 @@ export const Content = styled.div`
         border-radius: 15px;
         border: none;
     }
+
+    input:focus{
+        outline: none;
+    }
     
     button{
         display: flex;
@@ -30,12 +35,11 @@ export const Content = styled.div`
         cursor: pointer;
         border: none;
     }
-    
 `
 
 export const Send = styled.button`
     height: 40px;
-    width: 40px;
+    width: 45px;
     cursor: pointer;
     border-radius: 50%;
     background-color: #6049E4;
