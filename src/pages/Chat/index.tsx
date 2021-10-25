@@ -11,7 +11,7 @@ import UserProfile from '../../components/UserProfile';
 export default function Chat(){
     const { user } = useAuth();
     const history = useHistory();
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState<boolean>(false);
     const [userList, setUserList] = useState<any>();
     const [friend, setFriend] = useState<typeof user>(undefined);
 

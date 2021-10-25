@@ -20,7 +20,7 @@ export const Profile = styled.div`
 
     section{
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
     }
     
     h1{

@@ -55,8 +55,8 @@ export default function UserInfo(props: UsersProps){
                     <img src={props.friend.avatar} alt="Foto de perfil"/>
                     <h1>{props.friend.name}</h1>
                     <section>
-                        <p>{props.friend.city}</p>
-                        <p>{props.friend.age}</p>
+                        <p>Cidade: {props.friend.city}</p>
+                        <p>Idade: {props.friend.age}</p>
                     </section>
                 </Profile>
                 :

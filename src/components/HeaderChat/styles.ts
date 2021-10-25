@@ -39,9 +39,18 @@ export const UserInfo = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        align-items: flex-start;
-        width: 75px;
+        align-items: flex-end;
+        width: 200px;
         margin-right: 15px;
+    }
+
+    img{
+        cursor: pointer;
+    }
+
+    img:hover{
+        -webkit-filter: grayscale(100%);
+        transition: 1s;
     }
 `
 
@@ -51,8 +60,7 @@ export const Logout = styled.button`
     justify-content: space-between;
     align-items: center;
     margin-top: 5px;
-    padding: 0 15px 0 0;
-    width: 100%;
+    width: 70px;
     background-color: transparent;
     border: none;
     cursor: pointer;
