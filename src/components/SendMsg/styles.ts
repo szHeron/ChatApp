@@ -43,4 +43,9 @@ export const Send = styled.button`
     cursor: pointer;
     border-radius: 50%;
     background-color: #6049E4;
+
+    :disabled{
+        cursor: default;
+        background-color: #000;
+    }
 `

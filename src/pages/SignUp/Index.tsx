@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
+import ReCAPTCHA from 'react-google-recaptcha';
 import useAuth from "../../hooks/useAuth";
 import { Aside } from "../../styles/global";
 import ButtonLinear from "../../components/ButtonLinear";
@@ -24,6 +25,13 @@ export default function SignUp(){
         city: '',
         age: ''
     });
+
+    const onReCAPTCHAChange = (captchaCode: any)=>{
+        if(!captchaCode) {
+            return;
+        }
+        document.getElementById('signin')?.removeAttribute("disabled");
+    }
 
     const handleSubmit = async ()=>{
         let check = true;
@@ -111,7 +119,10 @@ export default function SignUp(){
                         {erros.password && <ErrorInput style={{color:'#f00'}}>{erros.password}</ErrorInput>}
                         <ChangeAuthOp style={{alignSelf: 'start'}} onClick={()=>history.push('/signin')}>Já possui uma conta? Entre!</ChangeAuthOp>
                     </Info>
-                    <ButtonLinear type="submit">Cadastrar</ButtonLinear>
+                    <ReCAPTCHA 
+                        sitekey="6LcLSJgcAAAAAPy5dNjbUcJ9icl_KAFj_gErN2p6"
+                        onChange={onReCAPTCHAChange}/>
+                    <ButtonLinear disabled type="submit">Cadastrar</ButtonLinear>
                 </Form>
             </Main>
         </Content>

@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { AuthContext } from '../../context/AuthContext';
 import ButtonLinear from '../../components/ButtonLinear';
 import { Aside } from "../../styles/global";
-import { Line, ErrorInput } from '../SignUp/styles';
+import { ErrorInput } from '../SignUp/styles';
 import { Content, Main, Form } from "./styles";
 import { ForgetPassword } from '../SignIn/styles';
 
@@ -42,9 +42,6 @@ export default function SignUp(){
                         {error && <ErrorInput style={{color:'#f00'}}>{error}</ErrorInput>}
                     </section>
                     <ButtonLinear>RECUPERAR</ButtonLinear>
-                    <span>
-                        <Line/>ou<Line/>
-                    </span>
                     <ForgetPassword style={{alignSelf: 'center'}} onClick={()=>history.push(`/signup`)}>Crie uma nova conta!</ForgetPassword>
                 </Form>
             </Main>
