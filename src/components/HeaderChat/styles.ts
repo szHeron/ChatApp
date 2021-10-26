@@ -49,7 +49,7 @@ export const UserInfo = styled.div`
     }
 
     img:hover{
-        -webkit-filter: grayscale(100%);
+        transform:scale(1.1);
         transition: 1s;
     }
 `

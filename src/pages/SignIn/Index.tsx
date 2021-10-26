@@ -77,9 +77,8 @@ export default function SignIn(){
                     </span>
                     <OtherLogin>
                         <button type="button" onClick={()=>{signInWithGoogle()}}>
-                            <img width="32" height="32" alt="teste"src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"/>
+                            <img width="32" height="32" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="entrar com o google"/>
                         </button>
-                        <img width="32" height="32" alt="teste"src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg"/>
                     </OtherLogin>
                     <ChangeAuthOp onClick={()=>history.push('/signup')}>Não possui uma conta? Crie uma!</ChangeAuthOp>
                 </Form>

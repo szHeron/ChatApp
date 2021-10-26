@@ -93,7 +93,7 @@ export const ErrorInput = styled.span`
 export const OtherLogin = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-self: center;
     margin-top: 15px;
     width: 100%;

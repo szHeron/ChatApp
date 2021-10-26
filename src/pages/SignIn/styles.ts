@@ -94,10 +94,11 @@ export const Line = styled.hr`
 export const OtherLogin = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
     align-self: center;
     margin-top: 15px;
-    width: 200px;
+    width: 100%;
 
     button{
         cursor: pointer;

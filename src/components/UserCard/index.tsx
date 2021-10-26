@@ -11,7 +11,6 @@ export default function UserCard(props: { user: UserType|undefined, selectFriend
                 </Avatar>
                 <div>
                     <h1>{props.user.name}</h1>
-                    <p>1 Mensagem não visualizada</p>
                 </div>
             </Card>
         )
@@ -22,7 +21,6 @@ export default function UserCard(props: { user: UserType|undefined, selectFriend
             </Avatar>
             <div>
                 <h1>Servidor Geral</h1>
-                <p>1 Mensagem não visualizada</p>
             </div>
         </Card>
     )

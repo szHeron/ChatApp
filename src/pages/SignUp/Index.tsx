@@ -78,12 +78,8 @@ export default function SignUp(){
                 <Form onSubmit={(e)=>{e.preventDefault(); handleSubmit()}}>
                     <OtherLogin>
                         <button type="button" onClick={()=>signInWithGoogle()}>
-                            <img width="32" height="32" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Sign Up with google"/>
-                            <p>Entrar com o google</p>
-                        </button>
-                        <button>
-                        <img width="32" height="32" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" alt="Sign Up with apple"/>
-                            <p>Entrar com o apple</p>
+                            <img width="32" height="32" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Entrar com o google"/>
+                            <p>Entrar com o Google</p>
                         </button>
                     </OtherLogin>
                     <span>

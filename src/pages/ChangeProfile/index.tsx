@@ -65,7 +65,7 @@ export default function ChangeProfileInfos(){
                 <img height="420" width="420" src="./FinishProfile.svg" alt="chat"/>
             </Aside>
             <Main>
-                <h1>Finalizar perfil</h1>
+                <h1>Editar perfil</h1>
                 <Form onSubmit={(e)=>{e.preventDefault(); handleSubmit()}}>
                     <PersonInfo>
                         <div style={{width: '50%'}}>
