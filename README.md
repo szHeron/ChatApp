@@ -1,46 +1,82 @@
-# Getting Started with Create React App
+<div align="center">
+  <h1> 📬 ChatApp </h1>
+</div>
+<br/>
+<p align="center">
+ <img src="https://i.ibb.co/Y3tbtmb/ea.png" alt="ChatApp" border="0"/>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+<p align="center">
+  <img src="https://img.shields.io/badge/typescript-%23323330.svg?style=for-the-badge&logo=typescript&logoColor=blue" alt="Typescript"/>
 
-In the project directory, you can run:
+  <img src="https://img.shields.io/badge/react-%23323330.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React"/>
 
-### `npm start`
+  <img src="https://img.shields.io/badge/firebase-%23323330.svg?style=for-the-badge&logo=firebase" alt="Firebase"/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  <img src="https://img.shields.io/badge/vercel-%23323330.svg?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel"/>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  <img src="https://img.shields.io/badge/Visual%20Studio%20Code-%23323330.svg?style=for-the-badge&logo=visual-studio-code&logoColor=blue" alt="VScode"/>
 
-### `npm test`
+   <img src="https://img.shields.io/badge/figma-%23323330.svg?style=for-the-badge&logo=figma&logoColor=orange" alt="Figma"/>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  <img height=28 src="https://img.shields.io/badge/license-MIT-blue" alt="License">  
 
-### `npm run build`
+</p>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🧪 Tecnologias
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Esse projeto foi desenvolvido com as seguintes tecnologias:
+- [Typescript](https://www.typescriptlang.org/)
+- [Reactjs](https://pt-br.reactjs.org/)
+- [Firebase](https://firebase.google.com/)
+- [Vercel](https://vercel.com/)
+- [Figma](https://figma.com/)
 
-### `npm run eject`
+## 🚀 Como executar
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Clone o projeto e acesse a pasta do mesmo.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+$ git clone https://github.com/szHeron/ChatApp
+$ cd ChatApp
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Para iniciá-lo, siga os passos abaixo:
+```bash
+# Instalar as dependências
+$ yarn ou npm install
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# Iniciar o projeto
+$ yarn start ou npm start
+```
+O app estará disponível no seu browser pelo endereço http://localhost:3000.
 
-## Learn More
+## 💻 Projeto
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Esse projeto foi desenvolvido para ser um chat em realtime, e para por em pratica os conhecimentos das tecnologias typescript e firebase.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🌟 Features
+
+- [x] Sign in and Sign up.
+
+- [ ] Anti-spam.
+
+- [ ] Responsividade in web.
+
+## 🔖 Layout
+
+Você pode visualizar o layout do projeto através do link abaixo:
+
+- [Layout Web](https://www.figma.com/file/qz7KYHmmxuBYCioLRiZnSc/Chat?node-id=0%3A1) 
+
+Lembrando que você precisa ter uma conta no [Figma](http://figma.com/).
+
+
+## 📝 License
+
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
+
+---
