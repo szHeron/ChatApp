@@ -24,7 +24,6 @@ export default function Chat(){
         }
         getUsersList();
         if(!user?.city.trim() || user?.age < 3){
-            console.log(user)
             history.push("/changeprofile")
         }
     },[user, history])
