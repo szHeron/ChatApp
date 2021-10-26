@@ -62,7 +62,7 @@ Esse projeto foi desenvolvido para ser um chat em realtime, e para por em pratic
 
 - [x] Sign in and Sign up.
 
-- [ ] Anti-spam.
+- [x] Anti-spam.
 
 - [ ] Web responsiveness.
 
