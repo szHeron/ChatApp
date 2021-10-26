@@ -64,7 +64,7 @@ Esse projeto foi desenvolvido para ser um chat em realtime, e para por em pratic
 
 - [ ] Anti-spam.
 
-- [ ] Responsividade in web.
+- [ ] Web responsiveness.
 
 ## 🔖 Layout
 
