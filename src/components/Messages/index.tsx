@@ -33,7 +33,7 @@ export default function Messages(props: { friend: UserType|undefined, usersList:
                 });
             return unsubscribe;
         }
-    },[props.friend])
+    },[props.friend, user])
 
     return(
         <Content>

@@ -27,7 +27,7 @@ export default function Chat(){
             console.log(user)
             history.push("/changeprofile")
         }
-    },[user?.city, user?.age])
+    },[user, history])
 
     return(
         <Content>
