@@ -35,6 +35,10 @@ export default function Messages(props: { friend: UserType|undefined, usersList:
         }
     },[props.friend, user])
 
+    const MsgDate = (date: Date) => {
+        return <span> {date.getHours()}:{date.getMinutes() < 10?'0':''}{date.getMinutes()}</span>
+    }
+
     return(
         <Content>
             {(messages && props.usersList)&&messages.map((message: Message, index: number)=>(
@@ -48,7 +52,7 @@ export default function Messages(props: { friend: UserType|undefined, usersList:
                         }
                         <TextArea>
                             <p>{message.text}</p>
-                            <span>{new Date(message.createdAt.seconds*1000).getHours()}:{new Date(message.createdAt.seconds*1000).getMinutes()}</span>
+                            {MsgDate(new Date(message.createdAt.seconds*1000))}
                         </TextArea>
                     </SendMsg>
                 ):(
@@ -61,7 +65,7 @@ export default function Messages(props: { friend: UserType|undefined, usersList:
                         }
                         <TextArea>
                             <p>{message.text}</p>
-                            <span>{new Date(message.createdAt.seconds*1000).getHours()}:{new Date(message.createdAt.seconds*1000).getMinutes()}</span>
+                            {MsgDate(new Date(message.createdAt.seconds*1000))}
                         </TextArea>
                     </ReceiveMsg>
                 )
