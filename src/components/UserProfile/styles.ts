@@ -28,7 +28,7 @@ export const Profile = styled.div`
         font-weight: 400;
     }
 
-    img{
+    img, svg{
         width: 150px;
         height: 150px;
         border-radius: 15px;

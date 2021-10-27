@@ -30,12 +30,13 @@ export const Avatar = styled.div`
     position:relative;
     display:inline-block;
 
-    img{
+    img, svg{
         margin-right: 15px;
         width: 50px;
         height: 50px;
         border-radius: 10px;
     }
+
     section{
         margin-right: 15px;
         width: 50px;
