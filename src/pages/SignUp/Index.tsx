@@ -30,7 +30,7 @@ export default function SignUp(){
         if(!captchaCode) {
             return;
         }
-        document.getElementById('signin')?.removeAttribute("disabled");
+        document.getElementById('signupButton')?.removeAttribute("disabled");
     }
 
     const handleSubmit = async ()=>{
@@ -122,7 +122,7 @@ export default function SignUp(){
                     <ReCAPTCHA 
                         sitekey="6LcLSJgcAAAAAPy5dNjbUcJ9icl_KAFj_gErN2p6"
                         onChange={onReCAPTCHAChange}/>
-                    <ButtonLinear disabled type="submit">Cadastrar</ButtonLinear>
+                    <ButtonLinear id="signupButton" disabled type="submit">Cadastrar</ButtonLinear>
                 </Form>
             </Main>
         </Content>
