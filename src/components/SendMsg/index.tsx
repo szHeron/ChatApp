@@ -21,6 +21,7 @@ export default function SendMsg(props: {friend: UserType | undefined}){
         if(waitMsgDelay && user){
             if(msg.length){
                 const now = new Date(firebase.firestore.Timestamp.now().seconds*1000)
+                const messagesDiv = document.getElementById('messages');
                 await firestore
                     .collection(`messages/${props.friend?user.id:'public'}/${props.friend?props.friend.id:'chat'}`)
                     .add({
@@ -29,6 +30,7 @@ export default function SendMsg(props: {friend: UserType | undefined}){
                         text: msg
                     });
                 setMsg('');
+                messagesDiv!.scrollTop = messagesDiv!.scrollHeight;
                 setWaitMsgDelay(false);
                 setTimeout(() => {setWaitMsgDelay(true);}, 5000);
             }else{
