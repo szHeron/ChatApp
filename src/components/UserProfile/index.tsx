@@ -14,8 +14,7 @@ const styles = {
     },
     bmMenu: {
         background: '#373a47',
-        fontSize: '1.15em',
-        overflowY: 'hidden'
+        fontSize: '1.15em'
     },
     bmOverlay: {
         background: 'rgba(0, 0, 0, 0.3)',
@@ -37,9 +36,10 @@ export default function UserInfo(props: UsersProps){
         <Content>
             <SliderUsers styles={styles} isOpen={props.show}>
                 <UserCard selectFriend={() => {
-                    props.setFriend(undefined);
-                    props.setShow(false)
-                }} user={undefined}/>
+                        props.setFriend(undefined);
+                        props.setShow(false)
+                    }} user={undefined}
+                />
                 {Object.keys(props.users).map((key)=>{
                     return key!==user?.id?
                         <UserCard key={key} selectFriend={() => {
