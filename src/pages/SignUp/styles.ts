@@ -66,6 +66,14 @@ export const Form = styled.form`
     }
 `
 
+export const PasswordVisibility = styled.span`
+    float: right;
+    margin-left: 95%;
+    margin-top: -26px;
+    position: relative;
+    cursor: pointer;
+`
+
 export const PersonInfo = styled.div`
     display: flex;
     justify-content: space-between;
