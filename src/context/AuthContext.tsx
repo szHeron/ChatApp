@@ -185,7 +185,10 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
 
   async function logout(){
     try{
-      await firebase.auth().signOut();
+      const UserRef = database.ref().child("users").child(user.id);
+      UserRef.update({
+        '/onlineState': false
+      });
       setUser({
         id: '',
         name: '',
@@ -196,6 +199,7 @@ export default function AuthContextProvider(props: AuthContextProviderProps){
         email: '',
         password: ''
       });
+      await firebase.auth().signOut();
     }catch(error){
       console.log(error)
     }

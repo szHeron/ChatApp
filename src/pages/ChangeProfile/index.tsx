@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 import useAuth from "../../hooks/useAuth";
-import { Aside } from "../../styles/global";
 import ButtonLinear from "../../components/ButtonLinear";
-import { ImgUpdate } from './styles';
+import { ImgUpdate, BackButton } from './styles';
 import { Content, Main, Form, ErrorInput, PersonInfo } from "../SignUp/styles";
+import { Aside } from '../../styles/global';
 
 type erros = {
     name: string,
@@ -63,6 +63,10 @@ export default function ChangeProfileInfos(){
         <Content>
             <Aside>
                 <img height="420" width="420" src="./FinishProfile.svg" alt="chat"/>
+                <BackButton>
+                    <svg width="24" height="24" fill="#fff" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M2.117 12l7.527 6.235-.644.765-9-7.521 9-7.479.645.764-7.529 6.236h21.884v1h-21.883z"/></svg>
+                    Voltar
+                </BackButton>
             </Aside>
             <Main>
                 <h1>Editar perfil</h1>
