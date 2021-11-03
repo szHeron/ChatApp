@@ -11,10 +11,14 @@ const styles = {
     },
     bmMenuWrap:{
         width: '26vw',
+        maxHeight: '95vh'
     },
     bmMenu: {
         background: '#373a47',
         fontSize: '1.15em'
+    },
+    bmItemList: {
+        overflowY: 'scroll'
     },
     bmOverlay: {
         background: 'rgba(0, 0, 0, 0.3)',

@@ -19,6 +19,10 @@ export const Header = styled.div`
         background-color: transparent;
     }
 
+    svg{
+        cursor: pointer;
+    }
+
     img{
         height: 48px;
         width: 48px;
