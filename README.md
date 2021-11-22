@@ -66,6 +66,8 @@ Esse projeto foi desenvolvido para ser um chat em realtime, e para por em pratic
 
 - [ ] Web responsiveness.
 
+- [ ] Recover password screen.
+
 ## 🔖 Layout
 
 Você pode visualizar o layout do projeto através do link abaixo:
