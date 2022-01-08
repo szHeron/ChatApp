@@ -26,6 +26,9 @@
 
 <br>
 
+## 🔥 Acesse em 
+  https://chat-app-szheron.vercel.app
+  
 ## 🧪 Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
@@ -36,7 +39,6 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [Figma](https://figma.com/)
 
 ## 🚀 Como executar
-
 Clone o projeto e acesse a pasta do mesmo.
 
 ```bash
